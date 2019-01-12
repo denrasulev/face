@@ -5,6 +5,7 @@ Write module doc string
 """
 
 import csv
+
 import imageio
 import numpy as np
 
