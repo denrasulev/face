@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Facial Emotions Recognition project.
+"""Facial Expressions Recognition project.
 
 Data exploration module.
 
@@ -20,9 +20,6 @@ Attributes:
     CO_PLOT (int): Co-plot number for each graph of sample images
     IMAGES_PER_EMOTION (list): number of images per each emotion
     Y_POS (tuple): Tuple of numbers from 0 to number of EMOTIONS
-
-Todo:
-    * Create some tests for the code
 """
 
 import os

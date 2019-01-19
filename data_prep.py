@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
-"""Facial expressions recognition project.
+"""Facial Expressions Recognition project.
 
-The data comes from the Kaggle competition “Challenges in Representation
+Data preparation module.
+
+Data comes from the Kaggle competition “Challenges in Representation
 Learning: Facial Expression Recognition Challenge”:
 
 https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge
 
-The data consists of 48x48 pixel grayscale images of faces in the form
-of arrays with a greyscale value for each pixel.
+Data consists of 48x48 pixel grayscale images of faces in the form of
+arrays with a grayscale value for each pixel.
 
-Each image  corresponds to a facial expression in one of seven categories:
+Each image corresponds to a facial expression in one of seven categories:
 0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral.
 
-The dataset contains approximately 36K images.
+This module reads raw data, converts numeric values to images and saves
+them to according folders - Training, Validation and Test.
+
+Dataset contains approximately 36K images.
 
 Attributes:
     RAW_DATA (str): Path to the raw data file (fer2013.csv)
