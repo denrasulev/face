@@ -52,7 +52,7 @@ for sub_folder in EMOTIONS:
 
 # Make layout tight, save to file and show
 plt.tight_layout()
-plt.savefig('samples_per_emotion.jpg')
+plt.savefig('/pics/samples_per_emotion.jpg')
 plt.show()
 
 # Print number of images per emotion to console
@@ -78,5 +78,5 @@ plt.title('Number of Images per Emotion')
 
 # Make layout tight, save to file and show
 plt.tight_layout()
-plt.savefig('images_per_emotion.jpg')
+plt.savefig('/pics/images_per_emotion.jpg')
 plt.show()
