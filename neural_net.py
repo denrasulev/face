@@ -5,9 +5,15 @@ Build Convolution Neural Net for facial emotion recognition
 import os
 
 import torch
+# Import comet_ml in the top of your file
+from comet_ml import Experiment
 from torch import nn, optim
 from torchsummary import summary
 from torchvision import datasets, transforms
+
+# Create an experiment
+experiment = Experiment(api_key="vk8Cbl1GfoLCBZPVWrBq17h1F",
+                        project_name="general", workspace="denrasulev")
 
 # Data directories
 DATA_DIR = './data'
@@ -67,7 +73,6 @@ class NeuralNet(nn.Module):
         self.conv1 = nn.Conv2d(1, 64, kernel_size=3)
         self.conv2 = nn.Conv2d(64, 64, kernel_size=3)
         self.pool = nn.MaxPool2d(2)
-        self.norm = nn.BatchNorm2d(64)
         self.hidd = nn.Linear(64 * 22 * 22, 128)
         self.drop = nn.Dropout(0.2)
         self.outp = nn.Linear(128, 10)
@@ -77,7 +82,6 @@ class NeuralNet(nn.Module):
         inp = self.actv(self.conv1(inp))
         inp = self.actv(self.conv2(inp))
         inp = self.pool(inp)
-        inp = self.norm(inp)
         inp = inp.view(inp.size(0), -1)
         inp = self.actv(self.hidd(inp))
         inp = self.drop(inp)
@@ -101,10 +105,25 @@ print(conv1Params[0].data.mean())
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
+# Report any information you need by:
+hyper_params = {"learning_rate": 0.001,
+                "batch_size": 64}
+
+experiment.log_parameters(hyper_params)
+
 # Train the network
 for epoch in range(2):  # loop over the dataset multiple times
 
+    # TODO: save best model every 10 epochs
+
     running_loss = 0.0
+
+    # Report any information you need by:
+    train_stats = {"epoch": epoch + 1,
+                   "running loss": running_loss}
+
+    experiment.log_parameters(train_stats)
+
     for i, data in enumerate(DATA_LOADERS['train'], 0):
         # get the inputs
         inputs, labels = data
@@ -120,7 +139,7 @@ for epoch in range(2):  # loop over the dataset multiple times
 
         # print statistics
         running_loss += loss.item()
-        if i % 200 == 199:  # print every 200 mini-batches
+        if i % 20 == 19:  # print every 20 mini-batches
             print('[%d, %5d] loss: %.3f' %
                   (epoch + 1, i + 1, running_loss / 200))
             running_loss = 0.0
