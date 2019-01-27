@@ -2,8 +2,6 @@
 Build Convolution Neural Net for facial emotion recognition
 """
 
-from comet_ml import Experiment
-
 import copy
 import os
 import random
@@ -11,6 +9,7 @@ import time
 
 import numpy as np
 import torch
+from comet_ml import Experiment
 from torch import nn, optim
 from torch.optim import lr_scheduler
 from torchsummary import summary
@@ -135,7 +134,7 @@ def train_model(tf_model, tf_criterion, tf_optimizer, tf_scheduler, tf_epochs):
     step = 0
 
     for ep in range(tf_epochs):
-        experiment.log_current_epoch(ep + 1)
+
         print('Epoch {}/{}'.format(ep + 1, tf_epochs))
         print('-' * 10)
 
@@ -289,6 +288,9 @@ def calc_accuracy(model, test_set_path, batch_size=32):
 
 # Initialize model
 MODEL = NeuralNet()
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+MODEL.to(device)
 
 # Print model's summary
 print("\nModel's summary:")
