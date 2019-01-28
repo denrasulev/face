@@ -260,14 +260,16 @@ summary(MODEL, (1, 48, 48))
 
 # Define hyper parameters
 LR = 0.01
-EPOCHS = 1
+EPOCHS = 50
 
 # Define loss function and optimizer
-CRITERION = nn.CrossEntropyLoss()
-OPTIMIZER = optim.SGD(MODEL.parameters(), lr=LR, momentum=0.9)
+# CRITERION = nn.CrossEntropyLoss()
+# OPTIMIZER = optim.SGD(MODEL.parameters(), lr=LR, momentum=0.9)
+CRITERION = nn.NLLLoss()
+OPTIMIZER = optim.Adam(MODEL.parameters(), lr=LR)
 
 # Decay learning rate by a factor of 0.1 every 5 epochs
-SCHEDULER = lr_scheduler.StepLR(OPTIMIZER, step_size=5, gamma=0.1)
+SCHEDULER = lr_scheduler.StepLR(OPTIMIZER, step_size=10, gamma=0.1)
 
 # Train the model
 MODEL_FT = train_model(MODEL, CRITERION, OPTIMIZER, SCHEDULER, EPOCHS)
