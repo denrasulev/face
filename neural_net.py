@@ -274,8 +274,8 @@ SCHEDULER = lr_scheduler.StepLR(OPTIMIZER, step_size=10, gamma=0.1)
 # Train the model
 MODEL_FT = train_model(MODEL, CRITERION, OPTIMIZER, SCHEDULER, EPOCHS)
 
-# Save model
-torch.save(MODEL_FT.state_dict(), 'model.pt')
-
 # Calculate accuracy
-calc_accuracy(MODEL_FT, './data/test')
+ACC = calc_accuracy(MODEL_FT, './data/test')
+
+# Save model
+torch.save(MODEL_FT.state_dict(), 'model_' + str(ACC) + '_acc.pt')

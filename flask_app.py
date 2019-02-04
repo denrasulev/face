@@ -1,6 +1,6 @@
 from flask import Flask, Response, render_template
 
-from camera import VideoCamera
+from predict import VideoCamera
 
 app = Flask(__name__)
 

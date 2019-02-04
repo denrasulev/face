@@ -22,8 +22,8 @@ Dataset contains approximately 36K images.
 Attributes:
     RAW_DATA (str): Path to the raw data file (fer2013.csv)
     EMOTION_INDEX (list): Numeric index for each facial expression
-    PIXELS_VALUES_STRING (list): List of grayscale pixels values
-    CATEGORY (list): Category name to split data into Training, Validation
+    PIXELS_VALUES (list): List of grayscale pixels values
+    CATEGORY_NAME (list): Category name to split data into Training, Validation
     and Test sets.
 """
 
@@ -36,8 +36,8 @@ import numpy as np
 RAW_DATA = './raw_data/fer2013.csv'
 
 EMOTION_INDEX = []
-PIXELS_VALUES_STRING = []
-CATEGORY = []
+PIXELS_VALUES = []
+CATEGORY_NAME = []
 
 # Read greyscale image data, then convert, sort and save images
 with open(RAW_DATA) as csv_file:
@@ -55,20 +55,20 @@ with open(RAW_DATA) as csv_file:
     for row in CSV_DATA:
 
         EMOTION_INDEX = row[0]
-        PIXELS_VALUES_STRING = row[1]
-        CATEGORY = row[2]
+        PIXELS_VALUES = row[1]
+        CATEGORY_NAME = row[2]
         path = ''
         cate = ''
 
         # Sort images by folders
         # Create base path according to the Category of an image
-        if CATEGORY == 'Training':
+        if CATEGORY_NAME == 'Training':
             path = './data/train/'
             cate = 'train'
-        elif CATEGORY == 'PublicTest':
+        elif CATEGORY_NAME == 'PublicTest':
             path = './data/valid/'
             cate = 'valid'
-        elif CATEGORY == 'PrivateTest':
+        elif CATEGORY_NAME == 'PrivateTest':
             path = './data/test/'
             cate = 'test'
 
@@ -95,7 +95,7 @@ with open(RAW_DATA) as csv_file:
 
         # Convert pixels values string to the list of int values
         pixel_values = []
-        for pixel in PIXELS_VALUES_STRING.split(' '):
+        for pixel in PIXELS_VALUES.split(' '):
             pixel_values.append(int(pixel))
 
         # Convert values to the array and reshape it
